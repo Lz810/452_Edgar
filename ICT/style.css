@@ -1,0 +1,236 @@
+/* Edgar (Lin Zheng) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    text-align: center;
+}
+
+
+header {
+    background-color: #333;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container {
+    padding-left: 2rem;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+nav {
+    flex-grow: 1;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 0 1rem;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    color: #ddd;
+}
+
+
+.hero {
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.cta-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+
+.product-grid {
+    padding: 2rem;
+}
+
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    text-align: center;
+}
+
+.product-image img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+}
+
+.add-to-cart {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+
+.about-section {
+    background-color: #f4f4f4;
+    padding: 2rem;
+    text-align: center;
+}
+
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul li {
+        margin: 0.5rem 0;
+    }
+
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo-container {
+        padding: 1rem 0;
+        padding-left: 0;
+    }
+}
+
+
+.blog-section {
+    padding: 2rem;
+    background-color: white;
+}
+
+.blog-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.blog-card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.blog-card h3 {
+    margin-bottom: 1rem;
+}
+
+.blog-card .date {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.blog-card .summary {
+    margin-bottom: 1rem;
+}
+
+.read-more {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.support-section {
+    padding: 40px 20px;
+    background-color: #f8f9fa;
+}
+
+.support-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.support-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.support-info h3 {
+    margin: 15px 0;
+    color: #333;
+}
+
+.support-info p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+
+.cta-button, .add-to-cart, .read-more {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cta-button:hover, .add-to-cart:hover, .read-more:hover {
+    background-color: #555;
+    transform: scale(1.05);
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
