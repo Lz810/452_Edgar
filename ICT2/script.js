@@ -108,7 +108,7 @@ function loadProducts() {
             <h3>${product.name}</h3>
             <p>${product.price}</p>
             <button class="add-to-cart" onclick="addToCart('${product.name}')">
-                加入购物车
+                Add to Shopping Cart 
             </button>
         </div>
     `).join('');
