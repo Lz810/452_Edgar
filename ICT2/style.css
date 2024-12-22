@@ -120,7 +120,7 @@ footer {
     color: white;
     text-align: center;
     padding: 1rem;
-    margin-top: auto;  /* 保持页脚在底部 */
+    margin-top: auto;  
 }
 
 
@@ -240,7 +240,7 @@ th, td {
     text-align: center;
 }
 
-/* 确保页面至少占满整个视窗高度 */
+
 html, body {
     height: 100%;
     margin: 0;
@@ -254,7 +254,7 @@ body {
 }
 
 main {
-    flex: 1;  /* 让main部分自动填充剩余空间 */
+    flex: 1;  
 }
 
 .intro-section {
@@ -276,7 +276,7 @@ main {
     gap: 0.5rem;
 }
 
-/* 产品展示区域 */
+
 .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -303,7 +303,7 @@ main {
     border-radius: 4px;
 }
 
-/* 服务部分 */
+
 .services-section {
     background-color: #f8f9fa;
     padding: 4rem 2rem;
@@ -331,7 +331,7 @@ main {
     margin-bottom: 1rem;
 }
 
-/* 联系信息部分 */
+
 .contact-info {
     padding: 4rem 2rem;
     background-color: white;
