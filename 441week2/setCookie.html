@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Set Cookie</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>Cookie Operations</h2>
+    <button onclick="setCookie()">Set Cookie</button>
+    <button onclick="deleteCookie()">Delete Cookie</button>
+
+    <script>
+        function setCookie() {
+            // Set cookie with 1 day expiration
+            const d = new Date();
+            d.setTime(d.getTime() + (24*60*60*1000));
+            const expires = "expires=" + d.toUTCString();
+            document.cookie = "userName=Edgar;" + expires + ";path=/";
+            alert('Cookie has been set!');
+        }
+
+        function deleteCookie() {
+            // Delete cookie by setting expiration to past date
+            document.cookie = "userName=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+            alert('Cookie has been deleted!');
+        }
+    </script>
+</body>
+</html> 

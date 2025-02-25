@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Read Cookie</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>Cookie Reader</h2>
+    <div id="cookieValue">Current Cookie Value: Not Read</div>
+    <button onclick="readCookie()">Read Cookie</button>
+
+    <script>
+        function readCookie() {
+            const cookies = document.cookie.split(';');
+            let userName = "Not Found";
+            
+            for(let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith("userName=")) {
+                    userName = cookie.substring("userName=".length, cookie.length);
+                    break;
+                }
+            }
+            
+            document.getElementById("cookieValue").innerHTML = 
+                "Current Cookie Value: " + userName;
+        }
+    </script>
+</body>
+</html> 

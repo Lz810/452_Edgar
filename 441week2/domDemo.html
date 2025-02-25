@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM in Client-side Scripting</title>
+    <meta charset="UTF-8">
+    <style>
+        .container {
+            margin: 20px;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .demo-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+        button {
+            padding: 10px;
+            margin: 5px;
+        }
+        #colorBox {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>The Role of DOM in Client-side Scripting</h1>
+        
+        <div class="explanation">
+            <h2>What is DOM?</h2>
+            <p>The Document Object Model (DOM) is a programming interface for HTML documents. It represents the page as a 
+            tree-like hierarchy of objects that can be modified with JavaScript. The DOM serves several crucial roles:</p>
+            
+            <ul>
+                <li>Provides a structured representation of the document as a tree of objects</li>
+                <li>Defines methods to dynamically access and update the content, structure, and style of documents</li>
+                <li>Enables interactive web pages through event handling and dynamic content manipulation</li>
+                <li>Acts as a bridge between JavaScript and HTML/CSS</li>
+            </ul>
+        </div>
+
+        <h2>Demo Examples</h2>
+
+        <!-- Demo 1: Content Manipulation -->
+        <div class="demo-section">
+            <h3>Demo 1: Dynamic Content Manipulation</h3>
+            <p id="demoText">This is the original text.</p>
+            <button onclick="changeText()">Change Text</button>
+            <button onclick="resetText()">Reset Text</button>
+            
+            <script>
+                function changeText() {
+                    document.getElementById("demoText").innerHTML = 
+                        "Text changed! DOM allows us to modify content dynamically.";
+                    document.getElementById("demoText").className = "highlight";
+                }
+                
+                function resetText() {
+                    document.getElementById("demoText").innerHTML = 
+                        "This is the original text.";
+                    document.getElementById("demoText").className = "";
+                }
+            </script>
+        </div>
+
+        <!-- Demo 2: Style Manipulation -->
+        <div class="demo-section">
+            <h3>Demo 2: Style Manipulation</h3>
+            <div id="colorBox"></div>
+            <button onclick="changeColor()">Change Color</button>
+            
+            <script>
+                let colors = ['red', 'blue', 'green', 'purple', 'orange'];
+                let currentColor = 0;
+                
+                function changeColor() {
+                    currentColor = (currentColor + 1) % colors.length;
+                    document.getElementById("colorBox").style.backgroundColor = 
+                        colors[currentColor];
+                }
+            </script>
+        </div>
+    </div>
+</body>
+</html> 
