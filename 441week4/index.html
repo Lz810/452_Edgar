@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edgar Timetable Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        input, button {
+            margin: 5px;
+            padding: 8px;
+        }
+        .class-item {
+            background-color: #f0f0f0;
+            margin: 5px auto;
+            width: 400px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edgar Timetable Management</h1>
+    <input type="text" id="subject" placeholder="Subject">
+    <input type="text" id="day" placeholder="Day">
+    <input type="time" id="time">
+    <input type="text" id="teacher" placeholder="Teacher">
+    <button onclick="addClass()">Add Class</button>
+    <div id="class-list"></div>
+    <button onclick="exportToMySQL()">Export to MySQL</button>
+
+    <script>
+        function addClass() {
+            const subject = document.getElementById('subject').value;
+            const day = document.getElementById('day').value;
+            const time = document.getElementById('time').value;
+            const teacher = document.getElementById('teacher').value;
+
+            if (!subject || !day || !time || !teacher) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            const classItem = document.createElement('div');
+            classItem.className = 'class-item';
+            classItem.innerHTML = `${subject} - ${day} - ${time} - ${teacher} <button onclick="deleteClass(this)">Delete</button>`;
+
+            const classList = document.getElementById('class-list');
+            classList.appendChild(classItem);
+
+            // 存储到本地存储
+            const classes = JSON.parse(localStorage.getItem('classes')) || [];
+            classes.push({ subject, day, time, teacher });
+            localStorage.setItem('classes', JSON.stringify(classes));
+
+            // 清空输入框
+            document.getElementById('subject').value = '';
+            document.getElementById('day').value = '';
+            document.getElementById('time').value = '';
+            document.getElementById('teacher').value = '';
+        }
+
+        function deleteClass(button) {
+            const classItem = button.parentElement;
+            classItem.remove();
+
+            // 更新本地存储
+            const classes = JSON.parse(localStorage.getItem('classes')) || [];
+            const index = classes.findIndex(item => 
+                item.subject === classItem.textContent.split(' - ')[0] &&
+                item.day === classItem.textContent.split(' - ')[1] &&
+                item.time === classItem.textContent.split(' - ')[2] &&
+                item.teacher === classItem.textContent.split(' - ')[3]
+            );
+            if (index!== -1) {
+                classes.splice(index, 1);
+                localStorage.setItem('classes', JSON.stringify(classes));
+            }
+        }
+
+        function exportToMySQL() {
+            const classes = JSON.parse(localStorage.getItem('classes')) || [];
+            if (classes.length === 0) {
+                alert('No data to export');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('classes', JSON.stringify(classes));
+
+            fetch('export.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => alert(data));
+        }
+    </script>
+</body>
+</html>
