@@ -1,0 +1,84 @@
+{
+    "resources": [
+        {
+            "id": "RTO001",
+            "name": "ICT30120 Resource Kit",
+            "description": "Complete training materials for Certificate III in Information Technology including assessment tools and learning resources.",
+            "price": 299.99,
+            "image": "resource1.jpg",
+            "unitCode": "ICT30120"
+        },
+        {
+            "id": "RTO002",
+            "name": "ICT40120 Resource Kit",
+            "description": "Comprehensive training package for Certificate IV in Information Technology with detailed assessment guides.",
+            "price": 399.99,
+            "image": "resource2.jpg",
+            "unitCode": "ICT40120"
+        },
+        {
+            "id": "RTO003",
+            "name": "ICT50220 Resource Kit",
+            "description": "Full set of training resources for Diploma of Information Technology including practical exercises.",
+            "price": 499.99,
+            "image": "resource3.jpg",
+            "unitCode": "ICT50220"
+        },
+        {
+            "id": "RTO004",
+            "name": "ICT60220 Resource Kit",
+            "description": "Advanced training materials for Advanced Diploma of Information Technology with case studies.",
+            "price": 599.99,
+            "image": "resource4.jpg",
+            "unitCode": "ICT60220"
+        },
+        {
+            "id": "RTO005",
+            "name": "ICT80515 Resource Kit",
+            "description": "Professional training package for Graduate Certificate in Information Technology with research materials.",
+            "price": 699.99,
+            "image": "resource5.jpg",
+            "unitCode": "ICT80515"
+        },
+        {
+            "id": "RTO006",
+            "name": "Cyber Security Resource Kit",
+            "description": "Specialized training materials focusing on cyber security best practices and implementation.",
+            "price": 349.99,
+            "image": "resource6.jpg",
+            "unitCode": "BSBXCS402"
+        },
+        {
+            "id": "RTO007",
+            "name": "Project Management Resource Kit",
+            "description": "Comprehensive guide for IT project management including templates and methodologies.",
+            "price": 449.99,
+            "image": "resource7.jpg",
+            "unitCode": "BSBPMG522"
+        },
+        {
+            "id": "RTO008",
+            "name": "Database Management Resource Kit",
+            "description": "Complete training package for database design, implementation and management.",
+            "price": 399.99,
+            "image": "resource8.jpg",
+            "unitCode": "ICTDB302"
+        },
+        {
+            "id": "RTO009",
+            "name": "Web Development Resource Kit",
+            "description": "Full set of resources for web development including front-end and back-end technologies.",
+            "price": 379.99,
+            "image": "resource9.jpg",
+            "unitCode": "ICTWEB301"
+        },
+        {
+            "id": "RTO010",
+            "name": "Network Administration Resource Kit",
+            "description": "Comprehensive training materials for network setup, configuration and maintenance.",
+            "price": 429.99,
+            "image": "resource10.jpg",
+            "unitCode": "ICTSAS305"
+        }
+    ]
+} 

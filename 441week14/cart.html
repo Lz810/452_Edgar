@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - NeoTech Wave RTO</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo" class="logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a id="auth-link" href="login.html">Log/Sign in</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="cart-section">
+            <h2>Shopping Cart</h2>
+            <div id="cart-container">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="cart-summary">
+                <div class="total-items">Total Items: <span id="total-items">0</span></div>
+                <div class="total-amount">Total Amount: $<span id="total-amount">0</span></div>
+                <button onclick="checkout()" class="checkout-button">Proceed to Checkout</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 NeoTech Wave RTO. All rights reserved.</p>
+            <p>RTO Provider Number: [Your RTO Number]</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Format price consistently
+        function formatPrice(price) {
+            if (!price) return '0.00';
+            const cleaned = price.toString()
+                .replace(/[^\d.]/g, '')
+                .replace(/^0+/, '')
+                .replace(/\.+/, '.');
+            return parseFloat(cleaned || '0').toFixed(2);
+        }
+
+        // Load shopping cart
+        function loadCart() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const cartContainer = document.getElementById('cart-container');
+            const totalItemsElement = document.getElementById('total-items');
+            const totalAmountElement = document.getElementById('total-amount');
+            
+            if (cart.length === 0) {
+                cartContainer.innerHTML = '<p>Your cart is empty.</p>';
+                totalItemsElement.textContent = '0';
+                totalAmountElement.textContent = '0.00';
+                return;
+            }
+
+            let totalAmount = 0;
+            cartContainer.innerHTML = cart.map(item => {
+                const price = parseFloat(formatPrice(item.price));
+                const quantity = parseInt(item.quantity || 1);
+                const itemTotal = price * quantity;
+                totalAmount += itemTotal;
+                return `
+                    <div class="cart-item">
+                        <div class="item-details">
+                            <h4>${item.name}</h4>
+                            <p>${item.description || ''}</p>
+                            <p>Price: ¥${price.toFixed(2)}</p>
+                            <p>Quantity: ${quantity}</p>
+                            <p>Subtotal: ¥${itemTotal.toFixed(2)}</p>
+                        </div>
+                        <div class="item-actions">
+                            <button onclick="updateQuantity('${item.id}', ${quantity - 1})">-</button>
+                            <button onclick="updateQuantity('${item.id}', ${quantity + 1})">+</button>
+                            <button onclick="removeFromCart('${item.id}')">Remove</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            totalItemsElement.textContent = cart.reduce((sum, item) => sum + (parseInt(item.quantity) || 1), 0);
+            totalAmountElement.textContent = totalAmount.toFixed(2);
+        }
+
+        // Update item quantity
+        function updateQuantity(itemId, newQuantity) {
+            if (newQuantity < 1) {
+                removeFromCart(itemId);
+                return;
+            }
+
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const itemIndex = cart.findIndex(item => item.id === itemId);
+            
+            if (itemIndex !== -1) {
+                cart[itemIndex].quantity = newQuantity;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadCart();
+            }
+        }
+
+        // Remove item from cart
+        function removeFromCart(itemId) {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const updatedCart = cart.filter(item => item.id !== itemId);
+            localStorage.setItem('cart', JSON.stringify(updatedCart));
+            loadCart();
+        }
+
+        // Checkout process
+        function checkout() {
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            if (!currentUser) {
+                alert('Please login first');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            if (cart.length === 0) {
+                alert('Your cart is empty');
+                return;
+            }
+
+            // Calculate total with proper price formatting
+            const total = cart.reduce((sum, item) => {
+                const price = parseFloat(formatPrice(item.price));
+                const quantity = parseInt(item.quantity || 1);
+                return sum + (price * quantity);
+            }, 0);
+
+            // Create order with consistent data structure
+            const order = {
+                orderId: generateOrderId(),
+                username: currentUser.username,
+                products: cart.map(item => ({
+                    ...item,
+                    price: formatPrice(item.price),
+                    quantity: parseInt(item.quantity || 1)
+                })),
+                total: total,
+                date: new Date().toISOString()
+            };
+
+            // Save order
+            let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            // Clear cart
+            localStorage.setItem('cart', JSON.stringify([]));
+
+            alert('Order confirmed!');
+            window.location.href = 'orders.html';
+        }
+
+        // Generate unique order ID
+        function generateOrderId() {
+            const timestamp = Date.now();
+            const random = Math.random().toString(36).substring(2, 5).toUpperCase();
+            return `ORD-${timestamp}-${random}`;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCart();
+        });
+    </script>
+</body>
+
+</html>
