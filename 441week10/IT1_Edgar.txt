@@ -1,0 +1,10 @@
+Lessons Learned
+Building this e - commerce site taught me the significance of modular design. Separating concerns like user auth (login/reg), cart management, and order processing made debugging easier. I realized the importance of consistent UI elements (navbar, footer) for a cohesive user experience. Also, handling local storage and database interactions needs careful error - checking to prevent data loss or corruption. Security aspects, like ensuring login verification on sensitive pages (cart, confirmation), were crucial to learn for protecting user info.
+
+Procedures to Build
+Planning: Sketch page layouts (home, cart, confirmation, logout) and define functionality. Decide on using local database and storage.
+Setup: Create HTML structures for each page, adding navbar and footer. Link external JS file (with my name as comment).
+Backend - like Logic: For home page, code registration/login to save user records. On cart page, fetch product data from local DB, enable adding to cart (stored locally), with login check.
+Order Flow: Build confirmation page for order review/edit (login required), saving orders locally.
+Logout Functions: Code logout page to clear cart, download order, and log out.
+Testing: Check each page's functionality, verify data storage/retrieval, and ensure login protection works.
