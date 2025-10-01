@@ -1,0 +1,110 @@
+# Student Name: 
+# Student ID: 
+
+##Question 1:
+Answer:
+1.	Open Source Nature: Open programming platforms prioritize free access to source code, enabling community collaboration and modification. JavaScript, as a key web technology, is supported by open standards (e.g., ECMA-262) that allow developers worldwide to contribute to its evolution. For example, frameworks like React and Vue.js leverage this principle to foster collective innovation.
+2.	Cross-Platform Compatibility: These platforms ensure code runs consistently across different devices and browsers. JavaScript achieves this through browser APIs and polyfills. For instance, the Fetch API for network requests works uniformly in modern browsers, minimizing compatibility issues.
+3.	Modularity and Extensibility: Open platforms promote modular code structures, allowing developers to build reusable components. In JavaScript, modules (via import/export) and package managers (e.g., npm) enable seamless integration of third-party libraries, such as Lodash for utility functions.
+
+
+##Question 2:
+Answer:
+Term	Description
+Events. List one coding example.
+Example: 
+button.addEventListener('click', () => { alert('Button clicked!'); });	Events are user actions (e.g., clicks, keystrokes) or browser occurrences (e.g., page load) that trigger script execution.
+
+Significance: Enables interactive user experiences by linking actions to script responses.
+Event handlers. List one coding example
+Example: 
+<button onclick="showMessage()">Click me
+</button>
+<script>function showMessage() { console.log('Message shown'); }
+</script>	Functions that process events when they occur, defining the logic for event responses.
+
+Significance: Orchestrates dynamic behavior by mapping events to specific functionalities.
+Explain Internet protocols and its significance to client-side script
+fetch('api/data')	Rules governing data transmission (e.g., HTTP, HTTPS) that enable client-server communication.
+Significance: Client-side scripts use protocols to fetch data, ensuring seamless interaction between the browser and servers.
+Hypertext markup language (HTML) and its relationships to client-side script
+Example: 
+JavaScript modifies HTML elements: 
+document.getElementById('text').textContent = 'Updated!';	HTML structures web content, while client-side scripts (e.g., JavaScript) enhance its interactivity.
+
+Significance: HTML provides the skeleton, and scripts add dynamic features like form validation.
+A standard that applies (defines) HTML and JavaScript	ECMA-262 (JavaScript) and W3C HTML standards define language specifications.
+Significance: Ensures consistency across browsers and platforms, enabling reliable development.
+
+
+##Question 3:
+Answer:
+1.	ECMAScript (ES) Standards: Define JavaScript syntax and features, e.g., ES6+ introduces arrow functions and template literals.
+Example:
+// ES6 arrow function for concise syntax
+const calculateSum = (a, b) => a + b; 
+console.log(`Sum: ${calculateSum(5, 3)}`); // Output: Sum: 8
+Significance: Promotes code readability and consistency .
+2.	Accessibility (A11Y) Standards: Ensure scripts are usable for people with disabilities, e.g., using aria- attributes.
+Example:
+<button id="nav-btn" aria-label="Navigate to home page">
+  Home
+</button>
+<script>
+// Add accessible event handling
+document.getElementById('nav-btn').addEventListener('click', () => {
+  navigateToHome();
+});
+</script>
+
+Significance: Enhances inclusivity and compliance with web accessibility guidelines.
+
+
+##Question 4:
+Answer:
+1.	Browser Developer Tools (e.g., Chrome DevTools)
+o	Pros: Built-in debugging tools (breakpoints, console logs), real-time code modification, and network monitoring. Ideal for quick testing .
+o	Cons: Limited to single-browser testing; requires manual execution for each scenario.
+2.	Unit Testing Frameworks (e.g., Jest, Mocha)
+o	Pros: Automates testing of small code units, supports cross-browser testing via tools like Selenium, and generates detailed reports .
+o	Cons: Requires setup time, may not fully replicate real-user interactions, and focuses on isolated components.
+
+
+
+##Question 5:
+Answer:
+Purpose Analysis
+•	Client-side Scripting (e.g., JavaScript):
+Runs in the user's browser to manipulate web page DOM elements and implement interactive logic. Its core goal is to optimize user experience (e.g., real-time form validation, dynamic page rendering).
+•	Server-side Scripting (e.g., Node.js/Python):
+Executes on the server to handle data processing, business logic, and resource management (e.g., database operations, user authentication). Its core goal is to ensure data security and stable execution of server-side logic.
+Differences:
+1.	Execution Environment:
+o	Client-side: Browser (e.g., JavaScript).
+o	Server-side: Server (e.g., Node.js).
+Example:
+// Client-side: Validate form input
+document.getElementById('form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!document.getElementById('email').value) alert('Enter email');
+});
+
+2.	Data Security:
+o	Client-side: Code is visible to users (potential security risks).
+o	Server-side: Code runs on secure servers, protecting sensitive logic.
+Example:
+python
+运行
+# Server-side: Secure database query (Node.js with Express)
+app.post('/login', (req, res) => {
+  const user = db.query('SELECT * FROM users WHERE email = ?', [req.body.email]);
+  // Hash password before comparison
+  if (bcrypt.compare(req.body.password, user.password)) res.send('Authenticated');
+});
+
+
+3.	Resource Impact:
+o	Client-side: Depends on user’s device performance.
+o	Server-side: Consumes server resources (CPU, memory).
+Significance: Client-side scripts optimize load times, while server-side scripts handle heavy processing .
+

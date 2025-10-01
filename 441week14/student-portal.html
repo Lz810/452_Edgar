@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal - NeoTech Wave RTO</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo" class="logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a id="auth-link" href="login.html">Log/Sign in</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="student-portal-section">
+            <h2>Student Portal</h2>
+            <div class="welcome-message">
+                <p id="welcome-text">Welcome, <span id="username"></span></p>
+            </div>
+
+            <div class="portal-grid">
+                <div class="portal-card">
+                    <h3>My Courses</h3>
+                    <div id="enrolled-courses">
+                        <!-- Enrolled courses will be displayed here -->
+                    </div>
+                </div>
+
+                <div class="portal-card">
+                    <h3>Learning Resources</h3>
+                    <div id="learning-resources">
+                        <!-- Learning resources will be displayed here -->
+                    </div>
+                </div>
+
+                <div class="portal-card">
+                    <h3>Progress Tracking</h3>
+                    <div id="progress-tracking">
+                        <!-- Progress information will be displayed here -->
+                    </div>
+                </div>
+
+                <div class="portal-card">
+                    <h3>Upcoming Assessments</h3>
+                    <div id="assessments">
+                        <!-- Assessment information will be displayed here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="portal-actions">
+                <button onclick="downloadTranscript()" class="action-button">Download Transcript</button>
+                <button onclick="viewCertificates()" class="action-button">View Certificates</button>
+                <button onclick="logout()" class="action-button">Logout</button>
+                <button onclick="deleteAccount()" class="action-button delete-account">Delete Account</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 NeoTech Wave RTO. All rights reserved.</p>
+            <p>RTO Provider Number: [Your RTO Number]</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Check login status
+        const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+        if (!currentUser) {
+            window.location.href = 'login.html';
+        } else {
+            document.getElementById('username').textContent = currentUser.username;
+        }
+
+        // Load enrolled courses
+        async function loadEnrolledCourses() {
+            const enrollments = JSON.parse(localStorage.getItem('enrollments') || '[]');
+            const userEnrollments = enrollments.filter(e => e.username === currentUser.username);
+            
+            try {
+                const response = await fetch('courses.json');
+                const data = await response.json();
+                const coursesContainer = document.getElementById('enrolled-courses');
+                
+                if (userEnrollments.length === 0) {
+                    coursesContainer.innerHTML = '<p>No courses enrolled yet.</p>';
+                    return;
+                }
+
+                coursesContainer.innerHTML = userEnrollments.map(enrollment => {
+                    const course = data.courses.find(c => c.id === enrollment.courseId);
+                    return `
+                        <div class="enrolled-course">
+                            <h4>${course.name}</h4>
+                            <p>Start Date: ${new Date(enrollment.startDate).toLocaleDateString()}</p>
+                            <p>Study Mode: ${enrollment.studyMode}</p>
+                            <p>Payment Plan: ${enrollment.paymentPlan}</p>
+                        </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('Error loading enrolled courses:', error);
+            }
+        }
+
+        // Load learning resources
+        async function loadLearningResources() {
+            try {
+                const response = await fetch('resources.json');
+                const data = await response.json();
+                const resourcesContainer = document.getElementById('learning-resources');
+                
+                resourcesContainer.innerHTML = data.resources.map(resource => `
+                    <div class="learning-resource">
+                        <h4>${resource.name}</h4>
+                        <p>${resource.description}</p>
+                        <button onclick="downloadResource('${resource.id}')" class="download-button">Download</button>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading learning resources:', error);
+            }
+        }
+
+        // Load progress tracking
+        function loadProgressTracking() {
+            const progressContainer = document.getElementById('progress-tracking');
+            // Actual progress tracking logic can be added here
+            progressContainer.innerHTML = `
+                <div class="progress-info">
+                    <h4>Overall Progress</h4>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 75%"></div>
+                    </div>
+                    <p>75% Complete</p>
+                </div>
+            `;
+        }
+
+        // Load assessments
+        function loadAssessments() {
+            const assessmentsContainer = document.getElementById('assessments');
+            // Actual assessment information can be added here
+            assessmentsContainer.innerHTML = `
+                <div class="assessment-info">
+                    <h4>Upcoming Assessments</h4>
+                    <ul>
+                        <li>Final Project - Due: 2024-06-15</li>
+                        <li>Practical Exam - Due: 2024-06-20</li>
+                        <li>Written Test - Due: 2024-06-25</li>
+                    </ul>
+                </div>
+            `;
+        }
+
+        // Download transcript
+        function downloadTranscript() {
+            alert('Transcript download feature coming soon!');
+        }
+
+        // View certificates
+        function viewCertificates() {
+            alert('Certificate viewing feature coming soon!');
+        }
+
+        // Logout
+        function logout() {
+            sessionStorage.removeItem('currentUser');
+            localStorage.removeItem('cart');
+            window.location.href = 'index.html';
+        }
+
+        // Download resource
+        function downloadResource(resourceId) {
+            alert(`Resource ${resourceId} download feature coming soon!`);
+        }
+
+        // Delete account
+        function deleteAccount() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone!')) {
+                const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+                if (currentUser) {
+                    // Remove from users list
+                    let users = JSON.parse(localStorage.getItem('users')) || [];
+                    users = users.filter(user => user.username !== currentUser.username);
+                    localStorage.setItem('users', JSON.stringify(users));
+
+                    // Clear user-related data
+                    sessionStorage.removeItem('currentUser');
+                    localStorage.removeItem('cart');
+                    
+                    // Clear the user's orders
+                    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+                    orders = orders.filter(order => order.username !== currentUser.username);
+                    localStorage.setItem('orders', JSON.stringify(orders));
+
+                    alert('Account deleted');
+                    window.location.href = 'index.html';
+                }
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadEnrolledCourses();
+            loadLearningResources();
+            loadProgressTracking();
+            loadAssessments();
+        });
+    </script>
+</body>
+</html> 

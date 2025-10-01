@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - NeoTech Wave RTO</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo" class="logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a id="auth-link" href="login.html">Log/Sign in</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="registration-section">
+            <h2>Create an Account</h2>
+            <div class="registration-form-container">
+                <form id="registrationForm" class="registration-form">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                        <small>Password must be at least 6 characters long</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password:</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+
+                    <button type="submit" class="submit-button">Register</button>
+                </form>
+                <p class="login-link">Already have an account? <a href="login.html">Login here</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 NeoTech Wave RTO. All rights reserved.</p>
+            <p>RTO Provider Number: [Your RTO Number]</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const phone = document.getElementById('phone').value;
+
+            // Validate password length
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters');
+                return;
+            }
+
+            // Validate password match
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+
+            // Get existing users
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+            // Check if username exists
+            if (users.some(user => user.username === username)) {
+                alert('Username already exists');
+                return;
+            }
+
+            // Check if email exists
+            if (users.some(user => user.email === email)) {
+                alert('Email already registered');
+                return;
+            }
+
+            // Create new user
+            const newUser = {
+                username,
+                email,
+                password,
+                phone
+            };
+
+            // Save user
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('Registration successful!');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html> 
